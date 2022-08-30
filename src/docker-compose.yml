@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2017-latest 
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - cqrs-sqldata:/var/opt/mssql
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+    - "15672:15672"
+    - "5672:5672"
+
+  api:
+    image: ${REGISTRY:-ddd-cqrs}/api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - rabbitmq
+      - sqldata
+
+volumes:
+  cqrs-sqldata:
+    external: false
