@@ -9,6 +9,7 @@ global using Domain.DomainModel.OrderDomainModel.Entity;
 global using Domain.DomainModel.OrderDomainModel.Repository;
 global using Microsoft.Extensions.Configuration;
 global using MongoDB.Driver;
+global using System.Security.Authentication;
 
 global using Infrastructure.DatabaseContext;
 global using Infrastructure.Repositories;
