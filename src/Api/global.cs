@@ -32,16 +32,18 @@ global using System.IdentityModel.Tokens.Jwt;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using HealthChecks.UI.Client;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-global using Infrastructure;
 
 global using Api.Api;
 global using Api.Models.OrderModels;
 global using Api.Commands.OrderCommands;
+global using Api.Commands.ItemCommands;
+global using Api.Commands.OrderItemMapCommands;
 global using Api.Exceptions;
 global using Api.Filters;
 global using Api.Ententinos;
 
 global using Domain.DomainModel.OrderDomainModel.Entity;
 
+global using Infrastructure;
 global using Infrastructure.DatabaseContext;
 global using Infrastructure.Repositories;

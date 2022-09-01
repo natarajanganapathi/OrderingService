@@ -1,4 +1,3 @@
-
 namespace Api.Commands.OrderCommands;
 
 public class CreateOrderCommand : IRequest<Order>

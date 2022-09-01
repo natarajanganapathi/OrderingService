@@ -7,7 +7,8 @@ global using Microsoft.EntityFrameworkCore.Design;
 global using Domain.DomainModel.OrderDomainModel;
 global using Domain.DomainModel.OrderDomainModel.Entity;
 global using Domain.DomainModel.OrderDomainModel.Repository;
-
+global using Microsoft.Extensions.Configuration;
+global using MongoDB.Driver;
 
 global using Infrastructure.DatabaseContext;
 global using Infrastructure.Repositories;

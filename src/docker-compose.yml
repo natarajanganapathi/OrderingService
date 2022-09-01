@@ -12,6 +12,13 @@ services:
     volumes:
       - cqrs-sqldata:/var/opt/mssql
 
+  nosqldata:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - cqrs-mongo-dbdata:/data/db
+  
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
@@ -31,4 +38,6 @@ services:
 
 volumes:
   cqrs-sqldata:
+    external: false
+  cqrs-mongo-dbdata:
     external: false
