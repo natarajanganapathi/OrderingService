@@ -6,6 +6,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { CreateOrderComponent } from '../../create-order/create-order.component';
 import { OrdersComponent } from '../../orders/orders.component';
+import { AccountComponent } from '../../account/account.component';
+import { CatalogComponent } from '../../catalog/catalog.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
@@ -29,7 +31,9 @@ import {MatSelectModule} from '@angular/material/select';
   declarations: [
     DashboardComponent,
     CreateOrderComponent,
-    OrdersComponent
+    OrdersComponent,
+    AccountComponent,
+    CatalogComponent
   ]
 })
 

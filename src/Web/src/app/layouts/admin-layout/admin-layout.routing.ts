@@ -3,14 +3,16 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { CreateOrderComponent } from '../../create-order/create-order.component';
 import { OrdersComponent } from '../../orders/orders.component';
+import { AccountComponent } from '../../account/account.component';
+import { CatalogComponent } from 'app/catalog/catalog.component';
 
 export const AdminLayoutRoutes: Routes = [
-    // {
-    //   path: '',
-    //   children: [ {
-    //     path: 'dashboard',
-    //     component: DashboardComponent
-    // }]}, {
+    {
+      path: '',
+      children: [ {
+        path: 'dashboard',
+        component: DashboardComponent
+    }]}, //{
     // path: '',
     // children: [ {
     //   path: 'userprofile',
@@ -46,12 +48,10 @@ export const AdminLayoutRoutes: Routes = [
     //         path: 'upgrade',
     //         component: UpgradeComponent
     //     }]
-    // }
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'create-order',   component: CreateOrderComponent },
-    { path: 'orders',     component: OrdersComponent },
-    // { path: 'typography',     component: TypographyComponent },
-    // { path: 'icons',          component: IconsComponent },
-    // { path: 'maps',           component: MapsComponent },
-    // { path: 'notifications',  component: NotificationsComponent },
+    // },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'create-order', component: CreateOrderComponent },
+    { path: 'orders', component: OrdersComponent },
+    { path: 'account', component: AccountComponent },
+    { path: 'catalog', component: CatalogComponent },
 ];
