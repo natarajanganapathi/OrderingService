@@ -11,8 +11,7 @@ global using Microsoft.Extensions.Logging;
 global using System.Runtime.Serialization;
 global using Serilog.Context;
 global using Microsoft.EntityFrameworkCore;
-global using Autofac.Extensions.DependencyInjection;
-global using Autofac;
+global using System.Text.Json;
 global using Azure.Core;
 global using Azure.Identity;
 global using Microsoft.AspNetCore;
@@ -32,7 +31,7 @@ global using System.IdentityModel.Tokens.Jwt;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using HealthChecks.UI.Client;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-
+global using Azure.Messaging.ServiceBus;
 global using Api.Api;
 global using Api.Models.OrderModels;
 global using Api.Commands.OrderCommands;
@@ -41,6 +40,8 @@ global using Api.Commands.OrderItemMapCommands;
 global using Api.Exceptions;
 global using Api.Filters;
 global using Api.Ententinos;
+global using Api.ServiceBus;
+
 
 global using Domain.DomainModel.OrderDomainModel.Entity;
 

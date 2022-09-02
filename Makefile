@@ -1,11 +1,11 @@
 restore:
-	dotnet restore ./src/ddd-cqrs.sln
+	dotnet restore ./src/OrderingService.sln
 
 clean:
-	dotnet clean ./src/ddd-cqrs.sln
+	dotnet clean ./src/OrderingService.sln
 
-build: clean
-	dotnet build ./src/ddd-cqrs.sln
+build:
+	dotnet build ./src/OrderingService.sln
 	
 run:
 	dotnet run --project ./src/Api/Api.csproj

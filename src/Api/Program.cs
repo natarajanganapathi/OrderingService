@@ -44,45 +44,50 @@ IConfiguration GetConfiguration()
 
     var config = builder.Build();
 
-    if (config.GetValue("UseVault", false))
-    {
-        TokenCredential credential = new ClientSecretCredential(
-            config["Vault:TenantId"],
-            config["Vault:ClientId"],
-            config["Vault:ClientSecret"]);
-        builder.AddAzureKeyVault(new Uri($"https://{config["Vault:Name"]}.vault.azure.net/"), credential);
-    }
+    // if (config.GetValue("UseVault", false))
+    // {
+    //     TokenCredential credential = new ClientSecretCredential(
+    //         config["Vault:TenantId"],
+    //         config["Vault:ClientId"],
+    //         config["Vault:ClientSecret"]);
+    //     builder.AddAzureKeyVault(new Uri($"https://{config["Vault:Name"]}.vault.azure.net/"), credential);
+    // }
 
     return builder.Build();
 }
 
 IWebHost BuildWebHost(IConfiguration configuration, string[] args)
 {
-   return WebHost.CreateDefaultBuilder(args)
-        .CaptureStartupErrors(false)
-        .ConfigureKestrel(options =>
-        {
-            var port = configuration.GetValue("PORT", 80);
-            options.Listen(IPAddress.Any, port, listenOptions =>
-            {
-                listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-            });
-            // var ports = GetDefinedPorts(configuration);
-            // options.Listen(IPAddress.Any, ports.httpPort, listenOptions =>
-            // {
-            //     listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-            // });
+    return WebHost.CreateDefaultBuilder(args)
+         .CaptureStartupErrors(false)
+         .ConfigureKestrel(options =>
+         {
+             var port = configuration.GetValue("PORT", 80);
+             options.Listen(IPAddress.Any, port, listenOptions =>
+             {
+                 listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+             });
+             // var ports = GetDefinedPorts(configuration);
+             // options.Listen(IPAddress.Any, ports.httpPort, listenOptions =>
+             // {
+             //     listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+             // });
 
-            // options.Listen(IPAddress.Any, ports.grpcPort, listenOptions =>
-            // {
-            //     listenOptions.Protocols = HttpProtocols.Http2;
-            // });
-        })
-        .UseStartup<Startup>()
-        .ConfigureAppConfiguration(x => x.AddConfiguration(configuration))
-        .UseContentRoot(Directory.GetCurrentDirectory())
-        .UseSerilog()
-        .Build();
+             // options.Listen(IPAddress.Any, ports.grpcPort, listenOptions =>
+             // {
+             //     listenOptions.Protocols = HttpProtocols.Http2;
+             // });
+         })
+         .UseStartup<Startup>()
+         .ConfigureAppConfiguration(x => x.AddConfiguration(configuration))
+         .UseContentRoot(Directory.GetCurrentDirectory())
+         .ConfigureLogging((host, builder) => builder.AddSimpleConsole((options) =>
+         {
+             options.SingleLine = true;
+             options.TimestampFormat = "hh:mm:ss";
+         }))
+         // .UseSerilog()
+         .Build();
 }
 
 // Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)

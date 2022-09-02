@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.10.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+      <PackageReference Include="MediatR" Version="9.0.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+      <PackageReference Include="AspNetCore.HealthChecks.AzureServiceBus" Version="3.0.0" />
+      <PackageReference Include="AspNetCore.HealthChecks.AzureStorage" Version="3.0.1" />
+      <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="3.0.3" />
+      <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="3.0.0" />
+      <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="3.0.0" />
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
+      <PackageReference Include="Google.Protobuf" Version="3.11.2" />
+      <PackageReference Include="Grpc.AspNetCore.Server" Version="2.25.0" />
+      <PackageReference Include="Grpc.Tools" Version="2.25.0" PrivateAssets="All" />    
+      <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
+      <PackageReference Include="Microsoft.ApplicationInsights.DependencyCollector" Version="2.12.0" />
+      <PackageReference Include="Microsoft.ApplicationInsights.Kubernetes" Version="1.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.HealthChecks" Version="1.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.0" />
+  </ItemGroup>
+</Project>

@@ -16,12 +16,12 @@ public class Startup
            .AddDbContext(Configuration)
            // .AddEventBus(Configuration)
            .AddScoped<IDbInitializer, DbInitializer>()
+        //    .AddSingleton<ILogger<>>()
+           .AddSingleton<MessageSender>()
            .AddSwagger(Configuration)
            .AddCustomHealthCheck(Configuration)
            .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
-           .AddControllers();
-
-           
+           .AddControllers();   
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
