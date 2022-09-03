@@ -16,12 +16,11 @@ public class Startup
            .AddDbContext(Configuration)
            // .AddEventBus(Configuration)
            .AddScoped<IDbInitializer, DbInitializer>()
-        //    .AddSingleton<ILogger<>>()
            .AddSingleton<MessageSender>()
            .AddSwagger(Configuration)
            .AddCustomHealthCheck(Configuration)
            .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)
-           .AddControllers();   
+           .AddControllers();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,14 +65,12 @@ public class Startup
         });
 
         var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-        using (var scope = scopeFactory.CreateScope())
+        var scope = scopeFactory.CreateScope();
+        var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
+        if (dbInitializer != null)
         {
-            var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
-            if(dbInitializer != null)
-            {
-                dbInitializer.Initialize();
-                dbInitializer.SeedData();
-            }
+            dbInitializer.Initialize();
+            dbInitializer.SeedData();
         }
     }
 }

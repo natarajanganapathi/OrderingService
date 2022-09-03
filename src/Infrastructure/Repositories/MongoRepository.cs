@@ -9,7 +9,7 @@ public class SummaryRepository
         _context = context;
     }
 
-    public List<OrderSummaryData> GetAsync()
+    public List<OrderSummaryData> Get()
     {
         return _context
                     .OrderSummary

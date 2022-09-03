@@ -9,7 +9,7 @@ public class CreateOrderItemMapCommand : IRequest<OrderItemMap>
 
 public class CreateOrderItemMapCommandHandler : IRequestHandler<CreateOrderItemMapCommand, OrderItemMap>
 {
-    private OrderDbContext _context;
+    private readonly OrderDbContext _context;
     public CreateOrderItemMapCommandHandler(OrderDbContext context)
     {
         _context = context;

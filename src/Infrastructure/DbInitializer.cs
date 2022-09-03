@@ -17,7 +17,6 @@ public interface IDbInitializer
 public class DbInitializer : IDbInitializer
 {
     private readonly IServiceScopeFactory _scopeFactory;
-
     public DbInitializer(IServiceScopeFactory scopeFactory)
     {
         _scopeFactory = scopeFactory;
@@ -26,45 +25,36 @@ public class DbInitializer : IDbInitializer
 
     public void Initialize()
     {
-        using (var serviceScope = _scopeFactory.CreateScope())
-        {
-            using (var context = serviceScope.ServiceProvider.GetService<OrderDbContext>())
-            {
-                // context?.Database.EnsureDeleted();
-                // context?.Database.EnsureCreated();
-                context?.Database.Migrate();
-            }
-        }
+        var serviceScope = _scopeFactory.CreateScope();
+        var context = serviceScope.ServiceProvider.GetService<OrderDbContext>();
+        // context?.Database.EnsureDeleted();
+        context?.Database.EnsureCreated();
+        context?.Database.Migrate();
     }
 
     public void SeedData()
     {
-        using (var serviceScope = _scopeFactory.CreateScope())
+        var serviceScope = _scopeFactory.CreateScope();
+        var context = serviceScope.ServiceProvider.GetService<OrderDbContext>();
+        if (context != null)
         {
-            using (var context = serviceScope.ServiceProvider.GetService<OrderDbContext>())
+            // Add default roles
+            var order = new Order { Account = "Saravana Store" };
+            var orderItem1 = new Item { Name = "Shirt", Discount = 0, UnitPrice = 10, Stock = 150 };
+            var orderItem2 = new Item { Name = "Pant", Discount = 0, UnitPrice = 60, Stock = 140 };
+
+            if (!context.Orders.Any())
             {
-                if (context != null)
-                {
-                    // Add default roles
-                    var order = new Order { Account = "Saravana Store" };
-                    var orderItem1 = new Item { Name = "Shirt", Discount = 0, UnitPrice = 10, Stock = 150 };
-                    var orderItem2 = new Item { Name = "Pant", Discount = 0, UnitPrice = 60, Stock = 140 };
+                var ordr = context.Add(order);
+                var itm1 = context.Add(orderItem1);
+                var itm2 = context.Add(orderItem2);
 
-                    if (!context.Orders.Any())
-                    {
-                        var ordr = context.Add(order);
-                        var itm1 = context.Add(orderItem1);
-                        var itm2 = context.Add(orderItem2);
+                context.SaveChanges();
 
-                        context.SaveChanges();
-
-                        context.Add(new OrderItemMap() { OrderId = ordr.Entity.Id, ItemId = itm1.Entity.Id, Quantity= 14 });
-                        context.Add(new OrderItemMap() { OrderId = ordr.Entity.Id, ItemId = itm2.Entity.Id, Quantity = 11 });
-                        context.SaveChanges();
-                    }
-                }
+                context.Add(new OrderItemMap() { OrderId = ordr.Entity.Id, ItemId = itm1.Entity.Id, Quantity = 14 });
+                context.Add(new OrderItemMap() { OrderId = ordr.Entity.Id, ItemId = itm2.Entity.Id, Quantity = 11 });
+                context.SaveChanges();
             }
-
         }
     }
 }

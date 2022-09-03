@@ -11,7 +11,7 @@ public class CreateItemCommand : IRequest<Item>
 
 public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
 {
-    private OrderDbContext _context;
+    private readonly OrderDbContext _context;
     public CreateItemCommandHandler(OrderDbContext context)
     {
         _context = context;
@@ -19,7 +19,6 @@ public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
     public async Task<Item> Handle(CreateItemCommand command, CancellationToken cancellationToken)
     {
         var item = new Item() { 
-            Id = command.Id,
             Name = command.Name,
             UnitPrice = command.UnitPrice,
             Discount = command.Discount,

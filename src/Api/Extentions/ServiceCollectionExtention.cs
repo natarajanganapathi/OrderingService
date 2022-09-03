@@ -44,34 +44,34 @@ public static class ServiceCollectionExtention
             .AddSqlServer(
                 configuration["ConnectionString"],
                 name: "OrderDB-check",
-                tags: new string[] { "OrderDb" });
+                tags: new string[] { "OrderingDb" });
 
-        if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
-        {
-            hcBuilder
-                .AddAzureBlobStorage(
-                    $"DefaultEndpointsProtocol=https;AccountName={accountName};AccountKey={accountKey};EndpointSuffix=core.windows.net",
-                    name: "catalog-storage-check",
-                    tags: new string[] { "catalogstorage" });
-        }
+        // if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
+        // {
+        //     hcBuilder
+        //         .AddAzureBlobStorage(
+        //             $"DefaultEndpointsProtocol=https;AccountName={accountName};AccountKey={accountKey};EndpointSuffix=core.windows.net",
+        //             name: "catalog-storage-check",
+        //             tags: new string[] { "catalogstorage" });
+        // }
 
-        if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
-        {
-            hcBuilder
-                .AddAzureServiceBusTopic(
-                    configuration["EventBusConnection"],
-                    topicName: "order_event_bus",
-                    name: "order-servicebus-check",
-                    tags: new string[] { "servicebus" });
-        }
-        else
-        {
-            hcBuilder
-                .AddRabbitMQ(
-                    $"amqp://{configuration["EventBusConnection"]}",
-                    name: "order-rabbitmqbus-check",
-                    tags: new string[] { "rabbitmqbus" });
-        }
+        // if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        // {
+        //     hcBuilder
+        //         .AddAzureServiceBusTopic(
+        //             configuration["EventBusConnection"],
+        //             topicName: "order_event_bus",
+        //             name: "order-servicebus-check",
+        //             tags: new string[] { "servicebus" });
+        // }
+        // else
+        // {
+        //     hcBuilder
+        //         .AddRabbitMQ(
+        //             $"amqp://{configuration["EventBusConnection"]}",
+        //             name: "order-rabbitmqbus-check",
+        //             tags: new string[] { "rabbitmqbus" });
+        // }
 
         return services;
     }
@@ -79,7 +79,7 @@ public static class ServiceCollectionExtention
     public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .AddEntityFrameworkSqlServer()
+            // .AddEntityFrameworkSqlServer()
             .AddDbContext<OrderDbContext>(options =>
         {
             options.UseSqlServer(configuration["ConnectionString"],

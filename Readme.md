@@ -18,6 +18,13 @@
     - Local Resource Manual Health check
     - Azure Service's Health Check
 9. Entity Framework
+    - Code First
+        - Create DB Schema
+        - Create Migration Script
+        - Execute Migration Script
+    - Db First
+    - Configuration
+    - Validation 
 10. DDD - Domain Driven Design
 12. CQRS
 11. Cors

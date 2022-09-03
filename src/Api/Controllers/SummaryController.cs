@@ -18,6 +18,6 @@ public class SummaryController : ControllerBase
     [HttpGet]
     public List<OrderSummaryData> Get()
     {
-        return _repository.GetAsync();
+        return  _repository.Get();
     }
 }
