@@ -42,7 +42,6 @@ global using Api.Filters;
 global using Api.Ententinos;
 global using Api.ServiceBus;
 
-
 global using Domain.DomainModel.OrderDomainModel.Entity;
 
 global using Infrastructure;

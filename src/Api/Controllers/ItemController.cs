@@ -22,7 +22,7 @@ public class ItemController : ControllerBase
     }
 
     [HttpPost]
-    public void Post(CreateItemCommand command)
+    public void Post(UpdateItemCommand command)
     {
         _mediator.Send(command);
     }

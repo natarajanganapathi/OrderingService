@@ -2,7 +2,7 @@ namespace Api.Commands.ItemCommands;
 
 public class CreateItemCommand : IRequest<Item>
 {
-   public int Id { get; set; }
+    public int Id { get; set; }
     public string? Name { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Discount { get; set; }
@@ -12,17 +12,20 @@ public class CreateItemCommand : IRequest<Item>
 public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
 {
     private readonly OrderDbContext _context;
-    public CreateItemCommandHandler(OrderDbContext context)
+ 
+    public CreateItemCommandHandler(IServiceScopeFactory scopeFactory)
     {
-        _context = context;
+        var serviceScope = scopeFactory.CreateScope();
+        _context = serviceScope.ServiceProvider.GetService<OrderDbContext>() ?? throw new Exception("Order Database context should not be null");
     }
     public async Task<Item> Handle(CreateItemCommand command, CancellationToken cancellationToken)
     {
-        var item = new Item() { 
+        var item = new Item()
+        {
             Name = command.Name,
             UnitPrice = command.UnitPrice,
             Discount = command.Discount,
-            Units = command.Units 
+            Units = command.Units
         };
         _context.Items.Add(item);
         await _context.SaveChangesAsync();

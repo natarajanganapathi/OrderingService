@@ -8,7 +8,7 @@ public class CreateOrderCommand : IRequest<Order>
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Order>
 {
     private readonly OrderDbContext _context;
-    private MessageSender _sender;
+    private readonly MessageSender _sender;
     private ILogger<CreateOrderCommandHandler> _logger;
     public CreateOrderCommandHandler(ILogger<CreateOrderCommandHandler> logger, IServiceScopeFactory scopeFactory, MessageSender sender)
     {
