@@ -13,8 +13,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.service.getAll()
       .subscribe(response => {
-        let data = response;
-        this.accounts = data as any[];
+        this.accounts = response as any[];
       });
   }
 

@@ -54,6 +54,8 @@ public class SummaryRepository
         //           {nameof(OrderSummaryData.Name), data.Name},
         //            {nameof(OrderSummaryData.Name), data.Name}
         //     };
+        data.CreatedDate = DateTime.Now;
+        data.UpdatedDate = DateTime.Now;
         await _context.OrderSummary.InsertOneAsync(data);
     }
 

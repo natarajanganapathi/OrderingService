@@ -10,30 +10,21 @@
                     <div class="card-body table-responsive">
                         <table class="table table-hover">
                             <thead class="text-warning">
-                                <th>Item ID</th>
-                                <th>Name</th>
-                                <th>Total</th>
+                                <tr  class="d-flex" >
+                                    <th class="col-1">Item ID</th>
+                                    <th class="col-3">Name</th>
+                                    <th class="col-2">Total</th>
+                                    <th class="col-3">Created Date</th>
+                                    <th class="col-3">Updated Date</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>$36,738</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Minerva Hooper</td>
-                                    <td>$23,789</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sage Rodriguez</td>
-                                    <td>$56,142</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Philip Chaney</td>
-                                    <td>$38,735</td>
+                                <tr class="d-flex" *ngFor="let summary of summaries">
+                                    <td class="col-1"> {{summary.itemId}}</td>
+                                    <td class="col-3"> {{summary.name}}</td>
+                                    <td class="col-2">{{summary.total}}</td>
+                                    <td class="col-3">{{summary.createdDate | date: "dd MMM, yyyy hh:mm:ss"}}</td>
+                                    <td class="col-3">{{summary.updatedDate | date: "dd MMM, yyyy hh:mm:ss"}}</td>
                                 </tr>
                             </tbody>
                         </table>

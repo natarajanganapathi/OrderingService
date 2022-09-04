@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as Chartist from 'chartist';
+import { SummaryService } from '../service/summary-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,11 +7,13 @@ import * as Chartist from 'chartist';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  public summaries = [];
+  constructor(private service: SummaryService) { }
 
   ngOnInit() {
-
+    this.service.get()
+      .subscribe(response => {
+        this.summaries = response as any;
+      })
   }
-
 }
