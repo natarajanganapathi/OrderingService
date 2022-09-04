@@ -21,8 +21,8 @@ public class UpdateAccountCommandHandler : IRequestHandler<UpdateAccountCommand,
     public async Task<Account> Handle(UpdateAccountCommand command, CancellationToken cancellationToken)
     {
          var existingRec = await _context.Accounts.SingleOrDefaultAsync(x => x.Id == command.Id);
-        var res = existingRec ?? throw new Exception("Recored not exist");
-        var isDomainEventRequired = !string.IsNullOrWhiteSpace(res.AccountName) && res.AccountName.Equals(command.AccountName);
+        var rec = existingRec ?? throw new Exception("Recored not exist");
+        var isDomainEventRequired = !string.IsNullOrWhiteSpace(rec.AccountName) && rec.AccountName.Equals(command.AccountName);
         existingRec.AccountName = command.AccountName;
         await _context.SaveChangesAsync();
         return existingRec;

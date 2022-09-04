@@ -20,7 +20,7 @@ export class CreateAccountComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(params => {
         this.mode = params.mode;
-        this.id = params.id;
+        this.id = parseInt(params.id);
         if (this.id) {
           this.service.getById(this.id)
             .subscribe((res: any) => {
@@ -39,7 +39,7 @@ export class CreateAccountComponent implements OnInit {
 
     api.subscribe(() => {
       this.accountForm.reset();
-      this.router.navigate(['/account']) 
+      this.router.navigate(['/account'])
         .then(() => {
           window.location.reload();
         });

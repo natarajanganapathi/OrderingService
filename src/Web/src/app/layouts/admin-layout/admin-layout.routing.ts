@@ -51,10 +51,10 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'create-order', component: CreateOrderComponent },
+    { path: 'create-order/:mode/:id', component: CreateOrderComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'account', component: AccountComponent },
     { path: 'create-account/:mode/:id', component: CreateAccountComponent },
     { path: 'catalog', component: CatalogComponent },
-    { path: 'create-catalog', component: CreateCatalogComponent },
+    { path: 'create-catalog/:mode/:id', component: CreateCatalogComponent },
 ];

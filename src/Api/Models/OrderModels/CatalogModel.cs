@@ -6,15 +6,15 @@ public class CatalogModel
     public string? Name { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Discount { get; set; }
-    public int Units { get; set; }
+    public int Stock { get; set; }
 
-    public CatalogModel(int id, string name, decimal unitPrice, decimal discount, int units = 1)
+    public CatalogModel(int id, string name, decimal unitPrice, decimal discount, int stock = 1)
     {
         Id = id;
         Name = name;
         UnitPrice = unitPrice;
         Discount = discount;
-        Units = units;
+        Stock = stock;
     }
     public CatalogModel(){}
 }

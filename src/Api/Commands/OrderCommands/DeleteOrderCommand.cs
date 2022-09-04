@@ -24,7 +24,7 @@ public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Ord
         if (existingRec == null) throw new Exception("Recored not exist");
         _context.Orders.Remove(existingRec);
         await _context.SaveChangesAsync();
-        await _sender.SendMessagesAsync(existingRec);
+        // await _sender.SendMessagesAsync(existingRec);
         return existingRec;
     }
 }

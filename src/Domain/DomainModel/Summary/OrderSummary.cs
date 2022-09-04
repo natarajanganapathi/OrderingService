@@ -5,7 +5,7 @@ public class OrderSummaryData
     [BsonIgnoreIfDefault]
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
-    public int ItemId { get; set; }
+    public int CatalogId { get; set; }
     public string? Name { get; set; }
     public int Total { get; set; }
     public DateTime CreatedDate { get; set; }

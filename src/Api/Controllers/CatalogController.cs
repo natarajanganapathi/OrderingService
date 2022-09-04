@@ -18,6 +18,7 @@ public class CatalogController : ControllerBase
     [HttpGet]
     public async Task<List<Catalog>> Get()
     {
+         _logger.LogInformation("Getting Catalog list");
         return await _context.Catalogs.Take(100).ToListAsync();
     }
 

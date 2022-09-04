@@ -8,10 +8,10 @@ public class MessageSender
         _configuration = configuration;
     }
 
-    public async Task SendMessagesAsync<T>(T message)
+    public async Task SendMessagesAsync<T>(string topic, T message) where T: OrderSummaryData
     {
         await using ServiceBusClient client = new ServiceBusClient(_configuration["ServiceBusConnectionString"]);
-        ServiceBusSender sender = client.CreateSender(_configuration["TopicName"]);
+        ServiceBusSender sender = client.CreateSender(topic);
         var messageString = JsonSerializer.Serialize(message);
         ServiceBusMessage serviceMessage = new ServiceBusMessage(messageString);
         await sender.SendMessageAsync(serviceMessage);

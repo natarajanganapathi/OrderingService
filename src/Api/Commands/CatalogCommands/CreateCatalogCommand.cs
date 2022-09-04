@@ -6,7 +6,7 @@ public class CreateCatalogCommand : IRequest<Catalog>
     public string? Name { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Discount { get; set; }
-    public int Units { get; set; }
+    public int Stock { get; set; }
 }
 
 public class CreateCatalogCommandHandler : IRequestHandler<CreateCatalogCommand, Catalog>
@@ -25,7 +25,7 @@ public class CreateCatalogCommandHandler : IRequestHandler<CreateCatalogCommand,
             Name = command.Name,
             UnitPrice = command.UnitPrice,
             Discount = command.Discount,
-            Units = command.Units
+            Stock = command.Stock
         };
         _context.Catalogs.Add(item);
         await _context.SaveChangesAsync();

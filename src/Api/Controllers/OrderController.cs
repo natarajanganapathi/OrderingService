@@ -18,6 +18,7 @@ public class OrdersController : ControllerBase
     [HttpGet]
     public async Task<List<Order>> Get()
     {
+         _logger.LogInformation("Getting Order list");
         return await _context.Orders.Take(100).ToListAsync();
     }
 

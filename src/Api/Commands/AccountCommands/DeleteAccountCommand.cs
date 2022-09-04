@@ -21,7 +21,7 @@ public class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand,
         if (existingRec == null) throw new Exception("Recored not exist");
         _context.Accounts.Remove(existingRec);
         await _context.SaveChangesAsync();
-        await _sender.SendMessagesAsync(existingRec);
+        // await _sender.SendMessagesAsync(existingRec);
         return existingRec;
     }
 }

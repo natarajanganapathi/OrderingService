@@ -9,7 +9,6 @@ public class Catalog
     public string? Name { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Discount { get; set; }
-    public int Units { get; set; }
     public int Stock { get; set; }
     public Catalog()
     {

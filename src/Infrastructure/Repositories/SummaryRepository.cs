@@ -18,11 +18,11 @@ public class SummaryRepository
                     .ToList();
     }
 
-    public async Task<OrderSummaryData> GetByIdAsync(string itemId)
+    public async Task<OrderSummaryData> GetByIdAsync(string catalogId)
     {
         var filter = Builders<OrderSummaryData>
                     .Filter
-                    .Eq("ItemId", itemId);
+                    .Eq("catalogId", catalogId);
         return await _context
                         .OrderSummary
                         .Find(filter)
@@ -33,10 +33,10 @@ public class SummaryRepository
     {
         var filter = Builders<OrderSummaryData>
             .Filter
-            .Eq("ItemId", orderSummaryData.ItemId);
+            .Eq("CatalogId", orderSummaryData.CatalogId);
         var update = Builders<OrderSummaryData>
             .Update
-            .Set("ItemId", orderSummaryData.ItemId)
+            .Set("CatalogId", orderSummaryData.CatalogId)
             .Set("Name", orderSummaryData.Name)
             .Set("Total", orderSummaryData.Total)
             .CurrentDate("UpdateDate");
@@ -64,11 +64,11 @@ public class SummaryRepository
         await _context.OrderSummary.InsertManyAsync(data);
     }
 
-    public async Task DeleteAsync(int itemId)
+    public async Task DeleteAsync(int catalogId)
     {
         var filter = Builders<OrderSummaryData>
             .Filter
-            .Eq("ItemId", itemId);
+            .Eq("CatalogId", catalogId);
         await _context.OrderSummary.DeleteOneAsync(filter);
     }
 }

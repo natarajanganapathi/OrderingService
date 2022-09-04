@@ -21,16 +21,33 @@ public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Ord
     public async Task<Order> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
     {
         var existingRec = await _context.Orders.SingleOrDefaultAsync(x => x.Id == command.Id);
-        var res = existingRec ?? throw new Exception("Recored not exist");
-        var isDomainEventRequired = (res.CatalogId != command.CatalogId) || (res.Quantity != command.Quantity);
+        var rec = existingRec ?? throw new Exception("Recored not exist");
+        var isDomainEventRequired = (rec.CatalogId != command.CatalogId) || (rec.Quantity != command.Quantity);
 
         existingRec.AccountId = command.AccountId;
         existingRec.CatalogId = command.CatalogId;
         existingRec.Quantity = command.Quantity;
+
         await _context.SaveChangesAsync();
         if (isDomainEventRequired)
         {
-            await _sender.SendMessagesAsync(res);
+            var data = await _context.Catalogs
+                            .Where(x => x.Id == command.CatalogId)
+                            .GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
+                            .SelectMany(
+                                temp => temp.b.DefaultIfEmpty(),
+                                (temp, p) =>
+                                new OrderSummaryData()
+                                {
+                                    Name = temp.a.Name,
+                                    CatalogId = temp.a.Id,
+                                    Total = temp.b.Sum(x => x.Quantity)
+                                })
+                            .FirstOrDefaultAsync();
+            if (data != null)
+            {
+                await _sender.SendMessagesAsync("update-summary-data", data);
+            }
         }
         return existingRec;
     }

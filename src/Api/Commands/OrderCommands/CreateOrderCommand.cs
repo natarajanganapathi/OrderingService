@@ -10,19 +10,41 @@ public class CreateOrderCommand : IRequest<Order>
 public class CreateOrderItemMapCommandHandler : IRequestHandler<CreateOrderCommand, Order>
 {
     private readonly OrderDbContext _context;
-    public CreateOrderItemMapCommandHandler(OrderDbContext context)
+    private readonly MessageSender _sender;
+    public CreateOrderItemMapCommandHandler(IServiceScopeFactory scopeFactory, MessageSender sender)
     {
-        _context = context;
+        var serviceScope = scopeFactory.CreateScope();
+        _context = serviceScope.ServiceProvider.GetService<OrderDbContext>() ?? throw new Exception("Order Database context should not be null");
+        _sender = sender;
     }
     public async Task<Order> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
     {
-        var orderItemMap = new Order() { 
+        var order = new Order()
+        {
             AccountId = command.AccountId,
             CatalogId = command.CatalogId,
             Quantity = command.Quantity
         };
-        _context.Orders.Add(orderItemMap);
+        var orderEntry = _context.Orders.Add(order);
         await _context.SaveChangesAsync();
-        return orderItemMap;
+
+        var data = await _context.Catalogs
+                        .Where(x => x.Id == orderEntry.Entity.CatalogId)
+                        .GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
+                        .SelectMany(
+                            temp => temp.b.DefaultIfEmpty(),
+                            (temp, p) =>
+                            new OrderSummaryData()
+                            {
+                                Name = temp.a.Name,
+                                CatalogId = temp.a.Id,
+                                Total = temp.b.Sum(x => x.Quantity)
+                            })
+                        .FirstOrDefaultAsync();
+        if (data != null)
+        {
+            await _sender.SendMessagesAsync("add-summary-data", data);
+        }
+        return order;
     }
 }

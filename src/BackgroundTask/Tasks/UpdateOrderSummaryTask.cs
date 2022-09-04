@@ -22,7 +22,7 @@ public class UpdateSummaryDataTask : BackgroundService
             if (data != null)
             {
                 await _repository.UpdateAsync(data);
-                _logger.LogDebug($"Updated Summary Data in database. Id = {data.ItemId}");
+                _logger.LogDebug($"Updated Summary Data in database. Id = {data.CatalogId}");
             }
             await args.CompleteMessageAsync(args.Message);
         });

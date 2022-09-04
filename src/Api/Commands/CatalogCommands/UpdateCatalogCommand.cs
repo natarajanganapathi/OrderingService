@@ -6,7 +6,7 @@ public class UpdateCatalogCommand : IRequest<Catalog>
     public string? Name { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Discount { get; set; }
-    public int Units { get; set; }
+    public int Stock { get; set; }
 }
 
 public class UpdateCatalogCommandHandler : IRequestHandler<UpdateCatalogCommand, Catalog>
@@ -22,16 +22,32 @@ public class UpdateCatalogCommandHandler : IRequestHandler<UpdateCatalogCommand,
     public async Task<Catalog> Handle(UpdateCatalogCommand command, CancellationToken cancellationToken)
     {
         var existingRec = await _context.Catalogs.SingleOrDefaultAsync(x => x.Id == command.Id);
-        var res = existingRec ?? throw new Exception("Recored not exist");
-        var isDomainEventRequired = res.Name != null && res.Name.Equals(command.Name);
+        var rec = existingRec ?? throw new Exception("Recored not exist");
+        var isDomainEventRequired = rec.Name != null && rec.Name.Equals(command.Name);
         existingRec.Name = command.Name;
         existingRec.UnitPrice = command.UnitPrice;
         existingRec.Discount = command.Discount;
-        existingRec.Units = command.Units;
+        existingRec.Stock = command.Stock;
         await _context.SaveChangesAsync();
         if (isDomainEventRequired)
         {
-            await _sender.SendMessagesAsync(res);
+            var data = await _context.Catalogs
+                           .Where(x => x.Id == command.Id)
+                           .GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
+                           .SelectMany(
+                               temp => temp.b.DefaultIfEmpty(),
+                               (temp, p) =>
+                               new OrderSummaryData()
+                               {
+                                   Name = temp.a.Name,
+                                   CatalogId = temp.a.Id,
+                                   Total = temp.b.Sum(x => x.Quantity)
+                               })
+                           .FirstOrDefaultAsync();
+            if (data != null)
+            {
+                await _sender.SendMessagesAsync("update-summary-data", data);
+            }
         }
         return existingRec;
     }

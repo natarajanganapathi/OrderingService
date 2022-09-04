@@ -22,7 +22,7 @@ public class AddSummaryDataTask : BackgroundService
             if (data != null)
             {
                 await _repository.CreateAsync(data);
-                _logger.LogDebug($"Added Summary Data created in database. Id={data.ItemId}");
+                _logger.LogDebug($"Added Summary Data created in database. Id={data.CatalogId}");
             }
             await args.CompleteMessageAsync(args.Message);
         });

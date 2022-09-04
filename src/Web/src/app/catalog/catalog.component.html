@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <button mat-raised-button [routerLink]="['/create-order']" class="btn btn-danger pull-right">Create
+                <button mat-raised-button [routerLink]="['/create-catalog', 'view', 0]" class="btn btn-danger pull-right">Create
                     Catalog</button>
                 <div class="clearfix"></div>
             </div>
@@ -32,7 +32,7 @@
                                             Discount
                                         </th>
                                         <th class="col-2">
-                                            Units
+                                            Stock
                                         </th>
                                         <th class="col-3">
                                             Action
@@ -45,7 +45,7 @@
                                         <td class="col-2"> {{catalog.name}}</td>
                                         <td class="col-2"> {{catalog.unitPrice}}</td>
                                         <td class="col-2"> {{catalog.discount}}</td>
-                                        <td class="col-2"> {{catalog.units}}</td>
+                                        <td class="col-2"> {{catalog.stock}}</td>
                                         <td class="col-3">
                                             <button class="btn btn-info"
                                                 [routerLink]="['/create-catalog',  'edit', catalog.id]">Edit</button>
