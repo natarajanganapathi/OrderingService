@@ -27,7 +27,7 @@ public class CreateCatalogCommandHandler : IRequestHandler<CreateCatalogCommand,
             Discount = command.Discount,
             Units = command.Units
         };
-        _context.Items.Add(item);
+        _context.Catalogs.Add(item);
         await _context.SaveChangesAsync();
         return item;
     }

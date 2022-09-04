@@ -21,7 +21,7 @@ public class UpdateCatalogCommandHandler : IRequestHandler<UpdateCatalogCommand,
     }
     public async Task<Catalog> Handle(UpdateCatalogCommand command, CancellationToken cancellationToken)
     {
-        var existingRec = await _context.Items.SingleOrDefaultAsync(x => x.Id == command.Id);
+        var existingRec = await _context.Catalogs.SingleOrDefaultAsync(x => x.Id == command.Id);
         var res = existingRec ?? throw new Exception("Recored not exist");
         var isDomainEventRequired = res.Name != null && res.Name.Equals(command.Name);
         existingRec.Name = command.Name;

@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
-
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { CreateOrderComponent } from '../../create-order/create-order.component';
-import { OrdersComponent } from '../../orders/orders.component';
-import { AccountComponent } from '../../account/account.component';
+import { DashboardComponent } from 'app/dashboard/dashboard.component';
+import { OrdersComponent } from 'app/orders/orders.component';
+import { CreateOrderComponent } from 'app/create-order/create-order.component';
+import { AccountComponent } from 'app/account/account.component';
+import { CreateAccountComponent } from 'app/create-account/create-account.component';
 import { CatalogComponent } from 'app/catalog/catalog.component';
+import { CreateCatalogComponent } from 'app/create-catalog/create-catalog.component';
 
 export const AdminLayoutRoutes: Routes = [
     {
@@ -53,5 +54,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'create-order', component: CreateOrderComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'account', component: AccountComponent },
+    { path: 'create-account/:mode/:id', component: CreateAccountComponent },
     { path: 'catalog', component: CatalogComponent },
+    { path: 'create-catalog', component: CreateCatalogComponent },
 ];

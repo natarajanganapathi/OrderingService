@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <button mat-raised-button [routerLink]="['/create-order']" class="btn btn-danger pull-right">Create Account</button>
+                <button mat-raised-button [routerLink]="['/create-account']" class="btn btn-danger pull-right">Create Account</button>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -21,104 +21,20 @@
                                         ID
                                     </th>
                                     <th>
-                                        Order Id
+                                        Account Name
                                     </th>
                                     <th>
-                                        Item Id
-                                    </th>
-                                    <th>
-                                        Quantity
+                                        Action
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            1
+                                    <tr  *ngFor="let account of accounts" > 
+                                        <td> {{account.id}}</td>
+                                        <td> {{account.accountName}}</td>
+                                        <td> 
+                                            <button class="btn btn-info" [routerLink]="['/create-account',  'edit', account.id]">Edit</button>
+                                            <button class="btn btn-danger pull-right" (click)="delete(account.id)">Delete</button>
                                         </td>
-                                        <td>
-                                            Dakota Rice
-                                        </td>
-                                        <td>
-                                            Niger
-                                        </td>
-                                        <td>
-                                            Oud-Turnhout
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Minerva Hooper
-                                        </td>
-                                        <td>
-                                            Curaçao
-                                        </td>
-                                        <td>
-                                            Sinaai-Waas
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            Sage Rodriguez
-                                        </td>
-                                        <td>
-                                            Netherlands
-                                        </td>
-                                        <td>
-                                            Baileux
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            Philip Chaney
-                                        </td>
-                                        <td>
-                                            Korea, South
-                                        </td>
-                                        <td>
-                                            Overland Park
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td>
-                                            Malawi
-                                        </td>
-                                        <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            6
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-
                                     </tr>
                                 </tbody>
                             </table>

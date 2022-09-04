@@ -19,20 +19,20 @@ public class OrderRepository : IOrderRepository
 
     public Account Add(Account order)
     {
-        return _context.Orders.Add(order).Entity;
+        return _context.Accounts.Add(order).Entity;
 
     }
 
     public async Task<Account?> GetAsync(int orderId)
     {
         var order = await _context
-                            .Orders
+                            .Accounts
                             // .Include(x => x.Address)
                             .FirstOrDefaultAsync(o => o.Id == orderId);
         if (order == null)
         {
             order = _context
-                        .Orders
+                        .Accounts
                         .Local
                         .FirstOrDefault(o => o.Id == orderId);
         }

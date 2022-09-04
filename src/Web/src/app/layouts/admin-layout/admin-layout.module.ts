@@ -3,11 +3,13 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { CreateOrderComponent } from '../../create-order/create-order.component';
-import { OrdersComponent } from '../../orders/orders.component';
-import { AccountComponent } from '../../account/account.component';
-import { CatalogComponent } from '../../catalog/catalog.component';
+import { DashboardComponent } from 'app/dashboard/dashboard.component';
+import { CreateOrderComponent } from 'app/create-order/create-order.component';
+import { OrdersComponent } from 'app/orders/orders.component';
+import { AccountComponent } from 'app/account/account.component';
+import { CatalogComponent } from 'app/catalog/catalog.component';
+import { CreateAccountComponent } from 'app/create-account/create-account.component';
+import { CreateCatalogComponent } from 'app/create-catalog/create-catalog.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
@@ -30,10 +32,12 @@ import {MatSelectModule} from '@angular/material/select';
   ],
   declarations: [
     DashboardComponent,
-    CreateOrderComponent,
     OrdersComponent,
+    CreateOrderComponent,
     AccountComponent,
-    CatalogComponent
+    CreateAccountComponent,
+    CatalogComponent,
+    CreateCatalogComponent
   ]
 })
 

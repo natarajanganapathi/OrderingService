@@ -21,7 +21,7 @@ public class CreateOrderItemMapCommandHandler : IRequestHandler<OrderCommand, Or
             ItemId = command.ItemId,
             Quantity = command.Quantity
         };
-        _context.OrderItemMaps.Add(orderItemMap);
+        _context.Orders.Add(orderItemMap);
         await _context.SaveChangesAsync();
         return orderItemMap;
     }

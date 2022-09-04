@@ -2,7 +2,7 @@ namespace Api.Commands.OrderCommands;
 
 public class CreateAccountCommand : IRequest<Account>
 {
-    public String? Account { get; set; }
+    public String? AccountName { get; set; }
 }
 
 public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, Account>
@@ -19,10 +19,10 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
     }
     public async Task<Account> Handle(CreateAccountCommand command, CancellationToken cancellationToken)
     {
-        var order = new Account() { AccountName = command.Account ?? "" };
+        var order = new Account() { AccountName = command.AccountName ?? "" };
         try
         {
-            _context.Orders.Add(order);
+            _context.Accounts.Add(order);
             var count = await _context.SaveChangesAsync();
             _logger.LogInformation($"Create Order Saved in Database. Count = {count}");
         }

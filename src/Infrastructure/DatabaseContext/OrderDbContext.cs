@@ -8,9 +8,9 @@ public partial class OrderDbContext : DbContext
 
     public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options) { }
 
-    public virtual DbSet<Account> Orders { get; set; }
-    public virtual DbSet<Catalog> Items { get; set; }
-    public virtual DbSet<Order> OrderItemMaps { get; set; }
+    public virtual DbSet<Account> Accounts { get; set; }
+    public virtual DbSet<Catalog> Catalogs { get; set; }
+    public virtual DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
