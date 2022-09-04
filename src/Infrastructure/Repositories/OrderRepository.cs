@@ -17,13 +17,13 @@ public class OrderRepository : IOrderRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public Order Add(Order order)
+    public Account Add(Account order)
     {
         return _context.Orders.Add(order).Entity;
 
     }
 
-    public async Task<Order?> GetAsync(int orderId)
+    public async Task<Account?> GetAsync(int orderId)
     {
         var order = await _context
                             .Orders
@@ -47,7 +47,7 @@ public class OrderRepository : IOrderRepository
         return order;
     }
 
-    public void Update(Order order)
+    public void Update(Account order)
     {
         _context.Entry(order).State = EntityState.Modified;
     }

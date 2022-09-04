@@ -2,9 +2,9 @@ namespace Domain.DomainModel.OrderDomainModel.Repository;
 
 public interface IOrderRepository
 {
-    Order Add(Order order);
+    Account Add(Account order);
 
-    void Update(Order order);
+    void Update(Account order);
 
-    Task<Order?> GetAsync(int orderId);
+    Task<Account?> GetAsync(int orderId);
 }

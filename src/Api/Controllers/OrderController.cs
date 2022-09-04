@@ -2,13 +2,13 @@ namespace Api.Controller;
 
 [ApiController]
 [Route("[controller]")]
-public class OrderController : ControllerBase
+public class OrdersController : ControllerBase
 {
-    private readonly ILogger<OrderController> _logger;
+    private readonly ILogger<OrdersController> _logger;
     private readonly IMediator _mediator;
     private readonly OrderDbContext _context;
 
-    public OrderController(ILogger<OrderController> logger, IMediator mediator, OrderDbContext context)
+    public OrdersController(ILogger<OrdersController> logger, IMediator mediator, OrderDbContext context)
     {
         _logger = logger;
         _mediator = mediator;
@@ -16,23 +16,14 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Order>> Get()
+    public async Task<List<OrderItemMap>> Get()
     {
-        _logger.LogInformation("Getting Orders list");
-        return await _context.Orders.Take(100).ToListAsync();
+        return await _context.OrderItemMaps.Take(100).ToListAsync();
     }
 
     [HttpPost]
-    public void Post(CreateOrderCommand command)
+    public void Post(OrderCommand command)
     {
-        try
-        {
-            _logger.LogInformation("Creating new Order");
-            _mediator.Send(command);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message, ex);
-        }
+        _mediator.Send(command);
     }
 }

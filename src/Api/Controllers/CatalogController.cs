@@ -2,13 +2,13 @@ namespace Api.Controller;
 
 [ApiController]
 [Route("[controller]")]
-public class ItemController : ControllerBase
+public class CatalogController : ControllerBase
 {
-    private readonly ILogger<ItemController> _logger;
+    private readonly ILogger<CatalogController> _logger;
     private readonly IMediator _mediator;
     private readonly OrderDbContext _context;
 
-    public ItemController(ILogger<ItemController> logger, IMediator mediator, OrderDbContext context)
+    public CatalogController(ILogger<CatalogController> logger, IMediator mediator, OrderDbContext context)
     {
         _logger = logger;
         _mediator = mediator;
@@ -16,13 +16,13 @@ public class ItemController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Item>> Get()
+    public async Task<List<Catalog>> Get()
     {
       return await _context.Items.Take(100).ToListAsync();
     }
 
     [HttpPost]
-    public void Post(UpdateItemCommand command)
+    public void Post(UpdateCatalogCommand command)
     {
         _mediator.Send(command);
     }

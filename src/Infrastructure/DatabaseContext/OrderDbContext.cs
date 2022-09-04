@@ -8,26 +8,26 @@ public partial class OrderDbContext : DbContext
 
     public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options) { }
 
-    public virtual DbSet<Order> Orders { get; set; }
-    public virtual DbSet<Item> Items { get; set; }
+    public virtual DbSet<Account> Orders { get; set; }
+    public virtual DbSet<Catalog> Items { get; set; }
     public virtual DbSet<OrderItemMap> OrderItemMaps { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Order>(entity =>
+        modelBuilder.Entity<Account>(entity =>
         {
             entity.HasKey(x => x.Id);
             entity
-                .Property<int>(nameof(Order.Id))
+                .Property<int>(nameof(Account.Id))
                 .ValueGeneratedOnAdd();
             entity.ToTable("Order");
         });
 
-        modelBuilder.Entity<Item>(entity =>
+        modelBuilder.Entity<Catalog>(entity =>
         {
             entity.HasKey(x => x.Id);
             entity
-                .Property<int>(nameof(Item.Id))
+                .Property<int>(nameof(Catalog.Id))
                 .ValueGeneratedOnAdd();
             entity.ToTable("Item");
         });

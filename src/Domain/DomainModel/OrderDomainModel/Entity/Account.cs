@@ -1,11 +1,11 @@
 namespace Domain.DomainModel.OrderDomainModel.Entity;
 
-public class Order
+public class Account
 {
     public int Id { get; set; }
-    public string Account { get; set; }
+    public string? AccountName { get; set; }
 
-    public Order()
+    public Account()
     {
         
     }

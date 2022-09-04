@@ -2,7 +2,7 @@ namespace BackgroundTasks;
 
 public class Program
 {
-    public static readonly string AppName = typeof(Program).Assembly.GetName().Name;
+    public static readonly string AppName = typeof(Program).Assembly.GetName().Name ?? "BackgroundTask";
 
     public static void Main(string[] args)
     {

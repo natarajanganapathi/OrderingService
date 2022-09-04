@@ -1,6 +1,6 @@
 namespace Domain.DomainModel.OrderDomainModel.Entity;
 
-public class Item
+public class Catalog
 {
     // [Required]
     // [Key]
@@ -11,7 +11,7 @@ public class Item
     public decimal Discount { get; set; }
     public int Units { get; set; }
     public int Stock { get; set; }
-    public Item()
+    public Catalog()
     {
         
     }

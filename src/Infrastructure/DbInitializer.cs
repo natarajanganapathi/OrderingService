@@ -39,9 +39,9 @@ public class DbInitializer : IDbInitializer
         if (context != null)
         {
             // Add default roles
-            var order = new Order { Account = "Saravana Store" };
-            var orderItem1 = new Item { Name = "Shirt", Discount = 0, UnitPrice = 10, Stock = 150 };
-            var orderItem2 = new Item { Name = "Pant", Discount = 0, UnitPrice = 60, Stock = 140 };
+            var order = new Account { AccountName = "Saravana Store" };
+            var orderItem1 = new Catalog { Name = "Shirt", Discount = 0, UnitPrice = 10, Stock = 150 };
+            var orderItem2 = new Catalog { Name = "Pant", Discount = 0, UnitPrice = 60, Stock = 140 };
 
             if (!context.Orders.Any())
             {
