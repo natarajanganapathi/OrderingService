@@ -11,7 +11,7 @@ import { AccountService } from '../service/account-service';
 export class CreateAccountComponent implements OnInit {
   public mode: string;
   private id: number;
-  public accountForm = this.formBuilder.group({ accountName: '' });
+  public accountForm = this.formBuilder.group({ id: 0, accountName: '' });
   constructor(private activatedRoute: ActivatedRoute,
     private service: AccountService,
     private router: Router,
@@ -25,6 +25,7 @@ export class CreateAccountComponent implements OnInit {
           this.service.getById(this.id)
             .subscribe((res: any) => {
               this.accountForm.patchValue({
+                id: res.id,
                 accountName: res.accountName
               });
             });
@@ -33,12 +34,15 @@ export class CreateAccountComponent implements OnInit {
   }
   onSubmit() {
     var api = (this.mode == 'edit')
-      ? this.service.patch(this.accountForm.value)
-      : this.service.post(this.accountForm.value);
+      ? this.service.update(this.id, this.accountForm.value)
+      : this.service.create(this.accountForm.value);
 
     api.subscribe(() => {
       this.accountForm.reset();
-      this.router.navigate(['/account']);
+      this.router.navigate(['/account']) 
+        .then(() => {
+          window.location.reload();
+        });
     });
   }
 }

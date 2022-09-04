@@ -36,6 +36,14 @@ services:
   #     - rabbitmq
   #     - sqldata
 
+  # background-task:
+  #   image: ${REGISTRY:-ordering-service}/task:${PLATFORM:-linux}-${TAG:-latest}
+  #   build:
+  #     context: .
+  #     dockerfile: BackgroundTask/Dockerfile
+  #   depends_on:
+  #     - sqldata
+
   # web:
   #   image: ${REGISTRY:-ordering-service}/web:${PLATFORM:-linux}-${TAG:-latest}
   #   build:

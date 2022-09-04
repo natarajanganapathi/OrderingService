@@ -19,12 +19,13 @@ export class AccountService {
         return this.httpClient.get(uri);
     }
 
-    post(data: any) {
+    create(data: any) {
         return this.httpClient.post(this.url, data);
     }
 
-    patch(data: any) {
-        return this.httpClient.patch(this.url, data);
+    update(id: number, data: any) {
+        var uri = `${this.url}/${id}`;
+        return this.httpClient.post(uri, data);
     }
 
     delete(id: number) {

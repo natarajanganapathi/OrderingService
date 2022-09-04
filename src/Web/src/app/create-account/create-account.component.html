@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
       <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger">
                       <h4 class="card-title">Create Order</h4>
@@ -10,7 +10,7 @@
                   <div class="card-body">
                       <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
                           <div class="row">
-                              <div class="col-md-3">
+                              <div class="col-md-10">
                                   <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Account Name" formControlName="accountName">
                                   </mat-form-field>

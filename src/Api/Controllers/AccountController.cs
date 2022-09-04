@@ -22,6 +22,14 @@ public class AccountController : ControllerBase
         return await _context.Accounts.Take(100).ToListAsync();
     }
 
+    [HttpGet]
+    [Route("{id:int}")]
+    public async Task<Account> GetById(int id)
+    {
+        _logger.LogInformation($"Getting Account by id ${id}");
+        return await _context.Accounts.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
     [HttpPost]
     public void Post(CreateAccountCommand command)
     {
@@ -29,16 +37,20 @@ public class AccountController : ControllerBase
         _logger.LogInformation("Created new Account");
     }
 
-    [HttpPatch]
-    public void Patch(UpdateAccountCommand command)
-    { 
-        _mediator.Send(command); 
+    [HttpPost]
+    [Route("{id:int}")]
+    public void Patch([FromBody] UpdateAccountCommand command, int id)
+    {
+        command.Id = id;
+        _mediator.Send(command);
         _logger.LogInformation("Update Account");
     }
 
     [HttpDelete]
-    public void Delete(DeleteAccountCommand command)
+    [Route("{id:int}")]
+    public void Delete(int id)
     {
+        var command = new DeleteAccountCommand() { Id = id };
         _mediator.Send(command);
         _logger.LogInformation("Delete Account");
     }

@@ -6,6 +6,9 @@ clean:
 
 build:
 	dotnet build ./src/OrderingService.sln
+
+watch:
+	dotnet watch --project ./src/Api/Api.csproj
 	
 run:
 	dotnet run --project ./src/Api/Api.csproj

@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <button mat-raised-button [routerLink]="['/create-account']" class="btn btn-danger pull-right">Create Account</button>
+                <button mat-raised-button [routerLink]="['/create-account', 'view', null]"
+                    class="btn btn-danger pull-right">Create Account</button>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -17,23 +18,27 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Account Name
-                                    </th>
-                                    <th>
-                                        Action
-                                    </th>
+                                    <tr class="d-flex">
+                                        <th class="col-2">
+                                            ID
+                                        </th>
+                                        <th class="col-5"> 
+                                            Account Name
+                                        </th>
+                                        <th class="col-3">
+                                            Action
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <tr  *ngFor="let account of accounts" > 
-                                        <td> {{account.id}}</td>
-                                        <td> {{account.accountName}}</td>
-                                        <td> 
-                                            <button class="btn btn-info" [routerLink]="['/create-account',  'edit', account.id]">Edit</button>
-                                            <button class="btn btn-danger pull-right" (click)="delete(account.id)">Delete</button>
+                                    <tr class="d-flex" *ngFor="let account of accounts">
+                                        <td class="col-2"> {{account.id}}</td>
+                                        <td class="col-5"> {{account.accountName}}</td>
+                                        <td class="col-3">
+                                            <button class="btn btn-info"
+                                                [routerLink]="['/create-account',  'edit', account.id]">Edit</button>
+                                            <button class="btn btn-danger pull-right"
+                                                (click)="delete(account.id)">Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>

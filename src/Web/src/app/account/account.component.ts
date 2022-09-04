@@ -14,13 +14,15 @@ export class AccountComponent implements OnInit {
     this.service.getAll()
       .subscribe(response => {
         let data = response;
-         this.accounts = data as any[];
+        this.accounts = data as any[];
       });
   }
 
   delete(id: number) {
     this.service.delete(id)
-      .subscribe(response => { console.log(`Recored deleted. Id= ${id} `) });
+      .subscribe(response => {
+        console.log(`Recored deleted. Id= ${id} `);
+        window.location.reload();
+      });
   }
-
 }
