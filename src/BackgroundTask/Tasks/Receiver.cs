@@ -8,25 +8,17 @@ public class MessageReceiver
         _configuration = configuration;
     }
 
-    // static async Task MessageHandler(ProcessMessageEventArgs args)
-    // {
-    //     string body = args.Message.Body.ToString();
-    //     Console.WriteLine($"Message received: {body}");
-
-    //     await args.CompleteMessageAsync(args.Message);
-    // }
-
     static Task ErrorHandler(ProcessErrorEventArgs args)
     {
         Console.WriteLine(args.Exception.ToString());
         return Task.CompletedTask;
     }
 
-    public async Task ReceiveMessagesAsync(String subscriberName, Func<ProcessMessageEventArgs, Task> handler)
+    public async Task ReceiveMessagesAsync(String topicName, String subscriberName, Func<ProcessMessageEventArgs, Task> handler)
     {
         ServiceBusClient client = new ServiceBusClient(_configuration["ServiceBusConnectionString"]);
         // create a processor that we can use to process the messages
-        ServiceBusProcessor processor = client.CreateProcessor(_configuration["TopicName"], subscriberName, new ServiceBusProcessorOptions());
+        ServiceBusProcessor processor = client.CreateProcessor(topicName, subscriberName, new ServiceBusProcessorOptions());
         try
         {
             // add handler to process messages

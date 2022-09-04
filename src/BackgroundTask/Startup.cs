@@ -16,6 +16,8 @@ public class Startup
             // .Configure<BackgroundTaskSettings>(this.Configuration)
             .AddOptions()
             .AddSingleton<MessageReceiver>()
+            .AddScoped<SummaryDataContext>()
+            .AddScoped<SummaryRepository>()
             .AddHostedService<PrepareSummaryDataTask>()
             .AddHostedService<AddSummaryDataTask>()
             // .AddEventBus(this.Configuration);

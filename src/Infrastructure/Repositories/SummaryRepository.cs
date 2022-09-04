@@ -29,7 +29,7 @@ public class SummaryRepository
                         .FirstOrDefaultAsync();
     }
 
-    public async Task UpdateOrderSummaryAsync(OrderSummaryData orderSummaryData)
+    public async Task UpdateAsync(OrderSummaryData orderSummaryData)
     {
         var filter = Builders<OrderSummaryData>
             .Filter
