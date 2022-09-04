@@ -51,8 +51,8 @@ public class DbInitializer : IDbInitializer
 
                 context.SaveChanges();
 
-                context.Add(new OrderItemMap() { OrderId = ordr.Entity.Id, ItemId = itm1.Entity.Id, Quantity = 14 });
-                context.Add(new OrderItemMap() { OrderId = ordr.Entity.Id, ItemId = itm2.Entity.Id, Quantity = 11 });
+                context.Add(new Order() { OrderId = ordr.Entity.Id, ItemId = itm1.Entity.Id, Quantity = 14 });
+                context.Add(new Order() { OrderId = ordr.Entity.Id, ItemId = itm2.Entity.Id, Quantity = 11 });
                 context.SaveChanges();
             }
         }

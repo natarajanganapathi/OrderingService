@@ -10,7 +10,7 @@ public partial class OrderDbContext : DbContext
 
     public virtual DbSet<Account> Orders { get; set; }
     public virtual DbSet<Catalog> Items { get; set; }
-    public virtual DbSet<OrderItemMap> OrderItemMaps { get; set; }
+    public virtual DbSet<Order> OrderItemMaps { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,7 +20,7 @@ public partial class OrderDbContext : DbContext
             entity
                 .Property<int>(nameof(Account.Id))
                 .ValueGeneratedOnAdd();
-            entity.ToTable("Order");
+            entity.ToTable("Account");
         });
 
         modelBuilder.Entity<Catalog>(entity =>
@@ -29,13 +29,13 @@ public partial class OrderDbContext : DbContext
             entity
                 .Property<int>(nameof(Catalog.Id))
                 .ValueGeneratedOnAdd();
-            entity.ToTable("Item");
+            entity.ToTable("Catalog");
         });
 
-        modelBuilder.Entity<OrderItemMap>(entity =>
+        modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(nameof(OrderItemMap.OrderId), nameof(OrderItemMap.ItemId));
-            entity.ToTable("OrderItemMap");
+            entity.HasKey(nameof(Order.OrderId), nameof(Order.ItemId));
+            entity.ToTable("Order");
         });
         OnModelCreatingPartial(modelBuilder);
     }

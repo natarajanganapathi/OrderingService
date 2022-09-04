@@ -16,7 +16,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<OrderItemMap>> Get()
+    public async Task<List<Order>> Get()
     {
         return await _context.OrderItemMaps.Take(100).ToListAsync();
     }
