@@ -17,6 +17,8 @@ public class Startup
            // .AddEventBus(Configuration)
            .AddScoped<IDbInitializer, DbInitializer>()
            .AddSingleton<MessageSender>()
+           .AddScoped<SummaryDataContext>()
+           .AddScoped<SummaryRepository>()
            .AddSwagger(Configuration)
            .AddCustomHealthCheck(Configuration)
            .AddMediatR(typeof(Startup).GetTypeInfo().Assembly)

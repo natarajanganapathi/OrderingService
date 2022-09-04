@@ -23,7 +23,7 @@ public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, Item>
     {
         var existingRec = await _context.Items.SingleOrDefaultAsync(x => x.Id == command.Id);
         var res = existingRec ?? throw new Exception("Recored not exist");
-        var isDomainEventRequired = res.Name.Equals(command.Name);
+        var isDomainEventRequired = res.Name != null && res.Name.Equals(command.Name);
         existingRec.Name = command.Name;
         existingRec.UnitPrice = command.UnitPrice;
         existingRec.Discount = command.Discount;

@@ -18,6 +18,12 @@ public class SummaryController : ControllerBase
     [HttpGet]
     public List<OrderSummaryData> Get()
     {
-        return  _repository.Get();
+        return _repository.Get();
+    }
+
+    [HttpPost]
+    public async Task Post(OrderSummaryData data)
+    {
+        await _repository.CreateAsync(data);
     }
 }

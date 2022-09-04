@@ -24,7 +24,7 @@ public class MessageReceiver
 
     public async Task ReceiveMessagesAsync(String subscriberName, Func<ProcessMessageEventArgs, Task> handler)
     {
-        await using ServiceBusClient client = new ServiceBusClient(_configuration["ServiceBusConnectionString"]);
+        ServiceBusClient client = new ServiceBusClient(_configuration["ServiceBusConnectionString"]);
         // create a processor that we can use to process the messages
         ServiceBusProcessor processor = client.CreateProcessor(_configuration["TopicName"], subscriberName, new ServiceBusProcessorOptions());
         try

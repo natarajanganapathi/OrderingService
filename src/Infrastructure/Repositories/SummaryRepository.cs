@@ -13,16 +13,16 @@ public class SummaryRepository
     {
         return _context
                     .OrderSummary
-                    .Find(x => true)
+                    .Find(new BsonDocument())
                     .Limit(100)
                     .ToList();
     }
 
-    public async Task<OrderSummaryData> GetByIdAsync(string id)
+    public async Task<OrderSummaryData> GetByIdAsync(string itemId)
     {
         var filter = Builders<OrderSummaryData>
                     .Filter
-                    .Eq("Id", id);
+                    .Eq("ItemId", itemId);
         return await _context
                         .OrderSummary
                         .Find(filter)
@@ -33,7 +33,7 @@ public class SummaryRepository
     {
         var filter = Builders<OrderSummaryData>
             .Filter
-            .Eq("Id", orderSummaryData.Id);
+            .Eq("ItemId", orderSummaryData.ItemId);
         var update = Builders<OrderSummaryData>
             .Update
             .Set("ItemId", orderSummaryData.ItemId)
@@ -44,5 +44,29 @@ public class SummaryRepository
         await _context
             .OrderSummary
             .UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
+    }
+    public async Task CreateAsync(OrderSummaryData data)
+    {
+        // var doc = new BsonDocument
+        //     {
+        //         {nameof(OrderSummaryData.Name), data.Name},
+        //          {nameof(OrderSummaryData.Name), data.Name},
+        //           {nameof(OrderSummaryData.Name), data.Name},
+        //            {nameof(OrderSummaryData.Name), data.Name}
+        //     };
+        await _context.OrderSummary.InsertOneAsync(data);
+    }
+
+    public async Task CreateManyAsync(List<OrderSummaryData> data)
+    {
+        await _context.OrderSummary.InsertManyAsync(data);
+    }
+
+    public async Task DeleteAsync(int itemId)
+    {
+        var filter = Builders<OrderSummaryData>
+            .Filter
+            .Eq("ItemId", itemId);
+        await _context.OrderSummary.DeleteOneAsync(filter);
     }
 }

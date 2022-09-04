@@ -15,29 +15,29 @@ public class Startup
             // .AddCustomHealthCheck(this.Configuration)
             // .Configure<BackgroundTaskSettings>(this.Configuration)
             .AddOptions()
-            .AddTransient<MessageReceiver>()
-            .AddHostedService<InitialLoadMongoDbTask>()
-            .AddHostedService<PrepareOrderSummaryTask>()
+            .AddSingleton<MessageReceiver>()
+            .AddHostedService<PrepareSummaryDataTask>()
+            .AddHostedService<AddSummaryDataTask>()
             // .AddEventBus(this.Configuration);
             ;
     }
 
 
-    // public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
-    // {
-    //     app.UseRouting();
-    //     app.UseEndpoints(endpoints =>
-    //     {
-    //         endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
-    //         {
-    //             Predicate = _ => true,
-    //             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    //         });
-    //         endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
-    //         {
-    //             Predicate = r => r.Name.Contains("self")
-    //         });
-    //     });
-    // }
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+        app.UseRouting();
+        // app.UseEndpoints(endpoints =>
+        // {
+        //     endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+        //     {
+        //         Predicate = _ => true,
+        //         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        //     });
+        //     endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+        //     {
+        //         Predicate = r => r.Name.Contains("self")
+        //     });
+        // });
+    }
 }
 
