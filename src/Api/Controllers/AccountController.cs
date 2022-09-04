@@ -39,7 +39,7 @@ public class AccountController : ControllerBase
 
     [HttpPost]
     [Route("{id:int}")]
-    public void Patch([FromBody] UpdateAccountCommand command, int id)
+    public void Update([FromBody] UpdateAccountCommand command, int id)
     {
         command.Id = id;
         _mediator.Send(command);

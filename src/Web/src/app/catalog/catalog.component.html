@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <button mat-raised-button [routerLink]="['/create-order']" class="btn btn-danger pull-right">Create Catalog</button>
+                <button mat-raised-button [routerLink]="['/create-order']" class="btn btn-danger pull-right">Create
+                    Catalog</button>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -17,108 +18,40 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Order Id
-                                    </th>
-                                    <th>
-                                        Item Id
-                                    </th>
-                                    <th>
-                                        Quantity
-                                    </th>
+                                    <tr class="d-flex">
+                                        <th class="col-1">
+                                            ID
+                                        </th>
+                                        <th class="col-2">
+                                            Name
+                                        </th>
+                                        <th class="col-2">
+                                            Unit Price
+                                        </th>
+                                        <th class="col-2">
+                                            Discount
+                                        </th>
+                                        <th class="col-2">
+                                            Units
+                                        </th>
+                                        <th class="col-3">
+                                            Action
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            1
+                                    <tr class="d-flex" *ngFor="let catalog of catalogs">
+                                        <td class="col-1"> {{catalog.id}}</td>
+                                        <td class="col-2"> {{catalog.name}}</td>
+                                        <td class="col-2"> {{catalog.unitPrice}}</td>
+                                        <td class="col-2"> {{catalog.discount}}</td>
+                                        <td class="col-2"> {{catalog.units}}</td>
+                                        <td class="col-3">
+                                            <button class="btn btn-info"
+                                                [routerLink]="['/create-catalog',  'edit', catalog.id]">Edit</button>
+                                            <button class="btn btn-danger pull-right"
+                                                (click)="delete(catalog.id)">Delete</button>
                                         </td>
-                                        <td>
-                                            Dakota Rice
-                                        </td>
-                                        <td>
-                                            Niger
-                                        </td>
-                                        <td>
-                                            Oud-Turnhout
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Minerva Hooper
-                                        </td>
-                                        <td>
-                                            Curaçao
-                                        </td>
-                                        <td>
-                                            Sinaai-Waas
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            Sage Rodriguez
-                                        </td>
-                                        <td>
-                                            Netherlands
-                                        </td>
-                                        <td>
-                                            Baileux
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            Philip Chaney
-                                        </td>
-                                        <td>
-                                            Korea, South
-                                        </td>
-                                        <td>
-                                            Overland Park
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td>
-                                            Malawi
-                                        </td>
-                                        <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            6
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-
                                     </tr>
                                 </tbody>
                             </table>

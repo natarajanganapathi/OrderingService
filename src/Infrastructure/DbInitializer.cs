@@ -39,20 +39,20 @@ public class DbInitializer : IDbInitializer
         if (context != null)
         {
             // Add default roles
-            var order = new Account { AccountName = "Saravana Store" };
-            var orderItem1 = new Catalog { Name = "Shirt", Discount = 0, UnitPrice = 10, Stock = 150 };
-            var orderItem2 = new Catalog { Name = "Pant", Discount = 0, UnitPrice = 60, Stock = 140 };
+            var account = new Account { AccountName = "Saravana Store" };
+            var catalog1 = new Catalog { Name = "Shirt", Discount = 0, UnitPrice = 10, Stock = 150 };
+            var catalog2 = new Catalog { Name = "Pant", Discount = 0, UnitPrice = 60, Stock = 140 };
 
             if (!context.Orders.Any())
             {
-                var ordr = context.Add(order);
-                var itm1 = context.Add(orderItem1);
-                var itm2 = context.Add(orderItem2);
+                var acnt = context.Add(account);
+                var catl1 = context.Add(catalog1);
+                var catl2 = context.Add(catalog2);
 
                 context.SaveChanges();
 
-                context.Add(new Order() { OrderId = ordr.Entity.Id, ItemId = itm1.Entity.Id, Quantity = 14 });
-                context.Add(new Order() { OrderId = ordr.Entity.Id, ItemId = itm2.Entity.Id, Quantity = 11 });
+                context.Add(new Order() { AccountId = acnt.Entity.Id, CatalogId = catl1.Entity.Id, Quantity = 14 });
+                context.Add(new Order() { AccountId = acnt.Entity.Id, CatalogId = catl2.Entity.Id, Quantity = 11 });
                 context.SaveChanges();
             }
         }

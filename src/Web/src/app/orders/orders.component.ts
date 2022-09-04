@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrdersService } from '../service/orders-service';
 
 @Component({
   selector: 'app-orders',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+  public orders = [];
+  constructor(private service: OrdersService) { }
 
   ngOnInit() {
+    this.service.getAll()
+      .subscribe(response => {
+        this.orders = response as any[];
+      });
   }
 
+  delete(id: number) {
+    this.service.delete(id)
+      .subscribe(response => {
+        console.log(`Recored deleted. Id= ${id} `);
+        window.location.reload();
+      });
+  }
 }

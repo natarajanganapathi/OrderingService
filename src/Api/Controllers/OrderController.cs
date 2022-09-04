@@ -21,9 +21,36 @@ public class OrdersController : ControllerBase
         return await _context.Orders.Take(100).ToListAsync();
     }
 
+    [HttpGet]
+    [Route("{id:int}")]
+    public async Task<Order> GetById(int id)
+    {
+        _logger.LogInformation($"Getting Order by id ${id}");
+        return await _context.Orders.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
     [HttpPost]
-    public void Post(OrderCommand command)
+    public void Post(CreateOrderCommand command)
     {
         _mediator.Send(command);
+        _logger.LogInformation("Created new Order");
+    }
+
+    [HttpPost]
+    [Route("{id:int}")]
+    public void Update([FromBody] UpdateOrderCommand command, int id)
+    {
+        command.Id = id;
+        _mediator.Send(command);
+        _logger.LogInformation("Update Order");
+    }
+
+    [HttpDelete]
+    [Route("{id:int}")]
+    public void Delete(int id)
+    {
+        var command = new DeleteOrderCommand() { Id = id };
+        _mediator.Send(command);
+        _logger.LogInformation("Delete Order");
     }
 }

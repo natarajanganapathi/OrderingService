@@ -34,7 +34,10 @@ public partial class OrderDbContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(nameof(Order.OrderId), nameof(Order.ItemId));
+            entity.HasKey(x => x.Id);
+            entity
+                .Property<int>(nameof(Order.Id))
+                .ValueGeneratedOnAdd();
             entity.ToTable("Order");
         });
         OnModelCreatingPartial(modelBuilder);

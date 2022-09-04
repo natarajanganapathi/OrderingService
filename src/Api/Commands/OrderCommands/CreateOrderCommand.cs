@@ -1,24 +1,24 @@
 namespace Api.Commands.OrderItemMapCommands;
 
-public class OrderCommand : IRequest<Order>
+public class CreateOrderCommand : IRequest<Order>
 {
-    public int OrderId { get; set; }
-    public int ItemId { get; set; }
+    public int AccountId { get; set; }
+    public int CatalogId { get; set; }
     public int Quantity { get; set; }
 }
 
-public class CreateOrderItemMapCommandHandler : IRequestHandler<OrderCommand, Order>
+public class CreateOrderItemMapCommandHandler : IRequestHandler<CreateOrderCommand, Order>
 {
     private readonly OrderDbContext _context;
     public CreateOrderItemMapCommandHandler(OrderDbContext context)
     {
         _context = context;
     }
-    public async Task<Order> Handle(OrderCommand command, CancellationToken cancellationToken)
+    public async Task<Order> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
     {
         var orderItemMap = new Order() { 
-            OrderId = command.OrderId,
-            ItemId = command.ItemId,
+            AccountId = command.AccountId,
+            CatalogId = command.CatalogId,
             Quantity = command.Quantity
         };
         _context.Orders.Add(orderItemMap);
