@@ -2,15 +2,15 @@ version: '3.4'
 
 services:
 
-  # sqldata:
-  #   image: mcr.microsoft.com/mssql/server:2017-latest 
-  #   environment:
-  #     - SA_PASSWORD=Pass@word
-  #     - ACCEPT_EULA=Y
-  #   ports:
-  #     - "1433:1433"
-  #   volumes:
-  #     - cqrs-sqldata:/var/opt/mssql
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2017-latest 
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - cqrs-sqldata:/var/opt/mssql
 
   # nosqldata:
   #   image: mongo
@@ -36,13 +36,13 @@ services:
   #     - rabbitmq
   #     - sqldata
 
-    web:
-      image: ${REGISTRY:-ordering-service}/web:${PLATFORM:-linux}-${TAG:-latest}
-      build:
-        context: .
-        dockerfile: Web/Dockerfile
-      ports:
-        - "80:80"
+  # web:
+  #   image: ${REGISTRY:-ordering-service}/web:${PLATFORM:-linux}-${TAG:-latest}
+  #   build:
+  #     context: .
+  #     dockerfile: Web/Dockerfile
+  #   ports:
+  #     - "80:80"
 
 volumes:
   cqrs-sqldata:

@@ -15,7 +15,7 @@ export class AccountService {
     }
 
     getById(id: number) {
-        var uri = `${this.url}/{id}`;
+        var uri = `${this.url}/${id}`;
         return this.httpClient.get(uri);
     }
 
@@ -28,7 +28,7 @@ export class AccountService {
     }
 
     delete(id: number) {
-        var uri = `${this.url}/{id}`;
+        var uri = `${this.url}/${id}`;
         return this.httpClient.delete(uri);
     }
 }
