@@ -56,3 +56,9 @@
 3. [Service Bus 2](https://medium.com/nerd-for-tech/azure-service-bus-publish-subscribe-pattern-178dd44baa36)
 4. [Service Bus 3 (Topic)](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-dotnet-how-to-use-topics-subscriptions)
 5. [Mongo DB](https://zetcode.com/csharp/mongodb/#:~:text=C%23%20MongoDB%20insert%20document,collection%20with%20the%20InsertOne%20method.&text=The%20example%20inserts%20a%20new,A%20new%20BsonDocument%20is%20created.)
+6. [Environmnt Variable](https://www.mailslurp.com/blog/how-to-set-appsettings-config-property-with-environment-variable/)
+
+
+
+docker run -it --entrypoint /bin/bash  -p 4200:80 ordering-service/api:linux-latest
+docker run -it --network host  -p 4200:80 ordering-service/api:linux-latest    

@@ -1,1 +1,8 @@
 node_modules
+.angular
+
+Api
+BackgroundTask
+Domain
+Infrastructure
+

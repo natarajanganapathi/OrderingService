@@ -30,8 +30,14 @@
       <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.0" />
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+   <None Update="appsettings.json">
+     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+   </None>
   </ItemGroup>
 </Project>

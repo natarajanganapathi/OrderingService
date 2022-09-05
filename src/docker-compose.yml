@@ -25,35 +25,43 @@ services:
   #   - "15672:15672"
   #   - "5672:5672"
 
-  # api:
-  #   image: ${REGISTRY:-ordering-service}/api:${PLATFORM:-linux}-${TAG:-latest}
-  #   build:
-  #     context: .
-  #     dockerfile: Api/Dockerfile
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - rabbitmq
-  #     - sqldata
+  api:
+    image: ${REGISTRY:-ordering-service}/api:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - sqldata
 
-  # background-task:
-  #   image: ${REGISTRY:-ordering-service}/task:${PLATFORM:-linux}-${TAG:-latest}
-  #   build:
-  #     context: .
-  #     dockerfile: BackgroundTask/Dockerfile
-  #   depends_on:
-  #     - sqldata
+  background-task:
+    image: ${REGISTRY:-ordering-service}/task:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: BackgroundTask/Dockerfile
+    depends_on:
+      - sqldata
 
-  # web:
-  #   image: ${REGISTRY:-ordering-service}/web:${PLATFORM:-linux}-${TAG:-latest}
-  #   build:
-  #     context: .
-  #     dockerfile: Web/Dockerfile
-  #   ports:
-  #     - "80:80"
+  web:
+    image: ${REGISTRY:-ordering-service}/web:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Web/Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - sqldata
+      - api
+      - background-task
 
 volumes:
   cqrs-sqldata:
     external: false
   # cqrs-mongo-dbdata:
   #   external: false
+
+# networks:
+#   default:
+#     external:
+#       name: summary
