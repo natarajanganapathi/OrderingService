@@ -13,7 +13,7 @@ public class AddSummaryDataTask : BackgroundService
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogDebug("Add Order Summary Task is starting.");
+        _logger.LogInformation("Add Order Summary Task is listening.");
         await _receiver.ReceiveMessagesAsync("add-summary-data", "background-process", async (ProcessMessageEventArgs args) =>
         {
             string body = args.Message.Body.ToString();
@@ -21,11 +21,10 @@ public class AddSummaryDataTask : BackgroundService
             var data = JsonSerializer.Deserialize<OrderSummaryData>(body);
             if (data != null)
             {
-                await _repository.CreateAsync(data);
-                _logger.LogDebug($"Added Summary Data created in database. Id={data.CatalogId}");
+                await _repository.UpdateAsync(data);
+                _logger.LogInformation($"Summary Data updated in database. Id={data.CatalogId}");
             }
             await args.CompleteMessageAsync(args.Message);
         });
-        _logger.LogDebug("Add Order Summary Task is completed.");
     }
 }

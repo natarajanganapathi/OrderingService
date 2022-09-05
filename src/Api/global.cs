@@ -43,6 +43,8 @@ global using Api.Ententinos;
 global using Api.ServiceBus;
 
 global using Domain.DomainModel.OrderDomainModel.Entity;
+global using Domain.DomainModel.OrderDomainModel;
+global using Domain.DomainModel.Summary;
 
 global using Infrastructure;
 global using Infrastructure.DatabaseContext;

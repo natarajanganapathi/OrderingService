@@ -13,7 +13,7 @@ public class UpdateSummaryDataTask : BackgroundService
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogDebug("Update Order Summary Task is starting.");
+        _logger.LogInformation("Update Order Summary Task is listening.");
         await _receiver.ReceiveMessagesAsync("update-summary-data", "background-process", async (ProcessMessageEventArgs args) =>
         {
             string body = args.Message.Body.ToString();
@@ -22,10 +22,9 @@ public class UpdateSummaryDataTask : BackgroundService
             if (data != null)
             {
                 await _repository.UpdateAsync(data);
-                _logger.LogDebug($"Updated Summary Data in database. Id = {data.CatalogId}");
+                _logger.LogInformation($"Updated Summary Data in database. Id = {data.CatalogId}");
             }
             await args.CompleteMessageAsync(args.Message);
         });
-        _logger.LogDebug("Update Order Summary Task is completed.");
     }
 }

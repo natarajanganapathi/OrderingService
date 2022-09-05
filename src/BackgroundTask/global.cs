@@ -9,7 +9,8 @@ global using Microsoft.Extensions.Hosting;
 global using System.IO;
 global using Azure.Messaging.ServiceBus;
 global using System.Text.Json;
-global using Domain.DomainModel.OrderDomainModel.Entity;
+
+global using Domain.DomainModel.Summary;
 
 global using Infrastructure;
 global using Infrastructure.DatabaseContext;

@@ -20,6 +20,7 @@ public class Startup
             .AddSingleton<SummaryRepository>()
             .AddHostedService<PrepareSummaryDataTask>()
             .AddHostedService<AddSummaryDataTask>()
+            .AddHostedService<UpdateSummaryDataTask>()
             // .AddEventBus(this.Configuration);
             ;
     }

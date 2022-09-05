@@ -22,9 +22,28 @@ public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Ord
     {
         var existingRec = await _context.Orders.SingleOrDefaultAsync(x => x.Id == command.Id);
         if (existingRec == null) throw new Exception("Recored not exist");
-        _context.Orders.Remove(existingRec);
+        var orderEntry =  _context.Orders.Remove(existingRec);
         await _context.SaveChangesAsync();
-        // await _sender.SendMessagesAsync(existingRec);
+        
+         var catalogs =  _context.Catalogs
+                        .Where(x => x.Id == orderEntry.Entity.CatalogId).ToList();
+        var data = catalogs.GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
+                        .SelectMany(
+                            temp => temp.b.DefaultIfEmpty(),
+                            (temp, p) =>
+                            new OrderSummaryData()
+                            {
+                                Name = temp.a.Name,
+                                CatalogId = temp.a.Id,
+                                Total = temp.b.Sum(x => x.Quantity),
+                                CreatedDate = DateTime.Now
+                            })
+                        .FirstOrDefault();
+        if (data != null)
+        {
+            await _sender.SendMessagesAsync("add-summary-data", data);
+        }
+
         return existingRec;
     }
 }

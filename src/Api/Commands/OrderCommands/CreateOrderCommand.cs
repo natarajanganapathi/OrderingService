@@ -28,9 +28,9 @@ public class CreateOrderItemMapCommandHandler : IRequestHandler<CreateOrderComma
         var orderEntry = _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 
-        var data = await _context.Catalogs
-                        .Where(x => x.Id == orderEntry.Entity.CatalogId)
-                        .GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
+        var catalogs =  _context.Catalogs
+                        .Where(x => x.Id == orderEntry.Entity.CatalogId).ToList();
+        var data = catalogs.GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
                         .SelectMany(
                             temp => temp.b.DefaultIfEmpty(),
                             (temp, p) =>
@@ -38,9 +38,10 @@ public class CreateOrderItemMapCommandHandler : IRequestHandler<CreateOrderComma
                             {
                                 Name = temp.a.Name,
                                 CatalogId = temp.a.Id,
-                                Total = temp.b.Sum(x => x.Quantity)
+                                Total = temp.b.Sum(x => x.Quantity),
+                                CreatedDate = DateTime.Now
                             })
-                        .FirstOrDefaultAsync();
+                        .FirstOrDefault();
         if (data != null)
         {
             await _sender.SendMessagesAsync("add-summary-data", data);

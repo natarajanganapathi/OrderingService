@@ -39,7 +39,7 @@ public class SummaryRepository
             .Set("CatalogId", orderSummaryData.CatalogId)
             .Set("Name", orderSummaryData.Name)
             .Set("Total", orderSummaryData.Total)
-            .CurrentDate("UpdateDate");
+            .CurrentDate("UpdatedDate");
 
         await _context
             .OrderSummary

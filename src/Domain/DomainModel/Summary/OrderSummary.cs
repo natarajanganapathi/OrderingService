@@ -1,3 +1,6 @@
+namespace Domain.DomainModel.Summary;
+
+[BsonIgnoreExtraElements]
 public class OrderSummaryData
 {
     [BsonElement("_id")]

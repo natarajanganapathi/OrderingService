@@ -8,3 +8,4 @@ global using MongoDB.Bson;
 global using MongoDB.Bson.Serialization.Attributes;
 
 global using Domain.DomainModel.OrderDomainModel.Entity;
+global using Domain.DomainModel.Summary;
