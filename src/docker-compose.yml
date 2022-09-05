@@ -34,12 +34,16 @@ services:
       - "80:80"
     depends_on:
       - sqldata
+    environment:
+      - ConnectionString=Server=sqldata;Database=OrderingDb3;User Id=sa;Password=Pass@word;MultipleActiveResultSets=True
 
   background-task:
     image: ${REGISTRY:-ordering-service}/task:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: BackgroundTask/Dockerfile
+    ports:
+      - "8080:80"
     depends_on:
       - sqldata
 
@@ -61,7 +65,6 @@ volumes:
   # cqrs-mongo-dbdata:
   #   external: false
 
-# networks:
-#   default:
-#     external:
-#       name: summary
+networks:
+  src_default: 
+    external: true
