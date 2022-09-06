@@ -46,6 +46,9 @@ services:
       - "8080:80"
     depends_on:
       - sqldata
+    environment:
+      - ConnectionString=Server=sqldata;Database=OrderingDb3;User Id=sa;Password=Pass@word;MultipleActiveResultSets=True
+
 
   web:
     image: ${REGISTRY:-ordering-service}/web:${PLATFORM:-linux}-${TAG:-latest}
@@ -54,10 +57,6 @@ services:
       dockerfile: Web/Dockerfile
     ports:
       - "4200:80"
-    depends_on:
-      - sqldata
-      - api
-      - background-task
 
 volumes:
   cqrs-sqldata:

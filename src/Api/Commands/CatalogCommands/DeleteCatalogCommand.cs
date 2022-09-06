@@ -21,7 +21,6 @@ public class DeleteCatalogCommandHandler : IRequestHandler<DeleteCatalogCommand,
         if (existingRec == null) throw new Exception("Recored not exist");
         _context.Catalogs.Remove(existingRec);
         await _context.SaveChangesAsync();
-        // await _sender.SendMessagesAsync(existingRec);
         return existingRec;
     }
 }

@@ -26,26 +26,10 @@ public class CreateOrderItemMapCommandHandler : IRequestHandler<CreateOrderComma
             Quantity = command.Quantity
         };
         var orderEntry = _context.Orders.Add(order);
+        // Regular update to corresponding SQL Table containing orders
         await _context.SaveChangesAsync();
-
-        var catalogs =  _context.Catalogs
-                        .Where(x => x.Id == orderEntry.Entity.CatalogId).ToList();
-        var data = catalogs.GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
-                        .SelectMany(
-                            temp => temp.b.DefaultIfEmpty(),
-                            (temp, p) =>
-                            new OrderSummaryData()
-                            {
-                                Name = temp.a.Name,
-                                CatalogId = temp.a.Id,
-                                Total = temp.b.Sum(x => x.Quantity),
-                                CreatedDate = DateTime.Now
-                            })
-                        .FirstOrDefault();
-        if (data != null)
-        {
-            await _sender.SendMessagesAsync("add-summary-data", data);
-        }
-        return order;
+        // Raise Domain Event 
+        await _sender.SendMessagesAsync("prepare-summary-data", orderEntry.Entity);
+        return orderEntry.Entity;
     }
 }

@@ -23,7 +23,7 @@ public class Program
             .ConfigureLogging((host, builder) => builder.AddSimpleConsole((options) =>
             {
                 options.SingleLine = true;
-                options.TimestampFormat = "hh:mm:ss";
+                options.TimestampFormat = "hh:mm:ss ";
             }))
             // .ConfigureLogging((host, builder) => builder.UseSerilog(host.Configuration).AddSerilog())
             .Build();

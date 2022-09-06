@@ -11,7 +11,7 @@
                         <table class="table table-hover">
                             <thead class="text-warning">
                                 <tr  class="d-flex" >
-                                    <th class="col-1">Item ID</th>
+                                    <th class="col-2">Catalog ID</th>
                                     <th class="col-3">Name</th>
                                     <th class="col-2">Total</th>
                                     <!-- <th class="col-3">Created Date</th> -->
@@ -20,7 +20,7 @@
                             </thead>
                             <tbody>
                                 <tr class="d-flex" *ngFor="let summary of summaries">
-                                    <td class="col-1"> {{summary.catalogId}}</td>
+                                    <td class="col-2"> {{summary.catalogId}}</td>
                                     <td class="col-3"> {{summary.name}}</td>
                                     <td class="col-2">{{summary.total}}</td>
                                     <!-- <td class="col-3">{{summary.createdDate | date: "dd MMM, yyyy hh:mm:ss"}}</td> -->

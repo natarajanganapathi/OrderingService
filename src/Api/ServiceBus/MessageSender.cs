@@ -8,7 +8,7 @@ public class MessageSender
         _configuration = configuration;
     }
 
-    public async Task SendMessagesAsync<T>(string topic, T message) where T: OrderSummaryData
+    public async Task SendMessagesAsync<T>(string topic, T message) where T: Order
     {
         await using ServiceBusClient client = new ServiceBusClient(_configuration["ServiceBusConnectionString"]);
         ServiceBusSender sender = client.CreateSender(topic);

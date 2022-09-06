@@ -19,8 +19,18 @@ public class Startup
             .AddSingleton<SummaryDataContext>()
             .AddSingleton<SummaryRepository>()
             .AddHostedService<PrepareSummaryDataTask>()
-            .AddHostedService<AddSummaryDataTask>()
-            .AddHostedService<UpdateSummaryDataTask>()
+            .AddDbContext<OrderDbContext>(options =>
+                    {
+                        options.UseSqlServer(Configuration["ConnectionString"],
+                                sqlServerOptionsAction: sqlOptions =>
+                                {
+                                    sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                                    //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
+                                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                                });
+                    });
+            // .AddHostedService<AddSummaryDataTask>()
+            // .AddHostedService<UpdateSummaryDataTask>()
             // .AddEventBus(this.Configuration);
             ;
     }

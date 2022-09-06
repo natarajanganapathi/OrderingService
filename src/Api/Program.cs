@@ -84,7 +84,7 @@ IWebHost BuildWebHost(IConfiguration configuration, string[] args)
          .ConfigureLogging((host, builder) => builder.AddSimpleConsole((options) =>
          {
              options.SingleLine = true;
-             options.TimestampFormat = "hh:mm:ss";
+             options.TimestampFormat = "hh:mm:ss ";
          }))
          // .UseSerilog()
          .Build();

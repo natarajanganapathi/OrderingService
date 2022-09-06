@@ -29,26 +29,10 @@ public class UpdateCatalogCommandHandler : IRequestHandler<UpdateCatalogCommand,
         existingRec.Discount = command.Discount;
         existingRec.Stock = command.Stock;
         await _context.SaveChangesAsync();
-        if (isDomainEventRequired)
+        var order = _context.Orders.Where(x=>x.CatalogId == existingRec.Id).FirstOrDefault();
+        if (isDomainEventRequired && order != null)
         {
-            var catalogs = _context.Catalogs
-                           .Where(x => x.Id == command.Id).ToList();
-
-            var data = catalogs.GroupJoin(_context.Orders, a => a.Id, b => b.CatalogId, (a, b) => new { a = a, b = b })
-                           .SelectMany(
-                               temp => temp.b.DefaultIfEmpty(),
-                               (temp, p) =>
-                               new OrderSummaryData()
-                               {
-                                   Name = temp.a.Name,
-                                   CatalogId = temp.a.Id,
-                                   Total = temp.b.Sum(x => x.Quantity)
-                               })
-                           .FirstOrDefault();
-            if (data != null)
-            {
-                await _sender.SendMessagesAsync("update-summary-data", data);
-            }
+           await _sender.SendMessagesAsync("prepare-summary-data", order);
         }
         return existingRec;
     }
